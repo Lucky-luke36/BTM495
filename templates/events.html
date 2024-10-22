@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}
+MCC Event Manager - Events
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style>
+        /* Ensure the cards have a solid background */
+        .card, .modal-content, table {
+            background-color: #fff;
+        }
+        
+        /* Apply background image but under all content */
+        body::after {
+            content: "";
+            background: url("https://static.wixstatic.com/media/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg/v1/fill/w_1519,h_824,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg") no-repeat center center fixed;
+            opacity: 0.5;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        /* Padding for the container so it doesn't stick to the top */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Optional slight transparency */
+            border-radius: 10px;
+        }
+    </style>
+    <div class="container mt-5" style="padding: 20px;">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">Event List</h1>
+            <button  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEventModal">Add Event</button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Add New event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addEventForm" method="POST" action="{{ url_for('add_event') }}">
+                    <div class="mb-3">
+                    <label for="eventName" class="form-label">Event Name</label>
+                    <input type="text" class="form-control" id="eventName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="eventDate" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="eventDate" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="eventVenue">Venue</label>
+                    <select name="venue_id" id="eventVenue" class="form-control" required>
+                        <option value="" disabled selected>Select a venue</option>
+                        {% for venue in venues %}
+                            <option value="{{ venue.venue_id }}">{{ venue.name }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Event</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        
+        <table class="table table-striped" style="margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Venue</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.event_id }}</td>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.date }}</td>
+                    <td>{{ event.venue.name }}</td>
+                    <td>
+                        <!-- Delete button with a form to submit DELETE request -->
+                        <form method="POST" action="{{ url_for('delete_event', event_id=event.event_id) }}" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

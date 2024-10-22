@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MCC Event Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/fb4d66_fef6aeb1bfe4440b912258268235b97d%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/fb4d66_fef6aeb1bfe4440b912258268235b97d%7Emv2.jpg" type="image/jpeg">
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</head>
+<body>
+    <style>
+        /* Ensure the body and html take up full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main content should grow to fill space, pushing footer down */
+        main {
+            flex: 1;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #f8f9fa;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        main::after{
+        content: "";
+        background: url("https://static.wixstatic.com/media/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg/v1/fill/w_1519,h_824,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg") no-repeat center center fixed;
+        opacity: 0.5;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;   
+        }
+
+        header {
+            background-color: white;
+            z-index: 2; /* Ensure it stays on top of the background image */
+        }
+    </style>
+    <!-- Common Header -->
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                
+                <!-- Logo -->
+                <a href="/manager" class="d-flex align-items-center">
+                    <img src="https://static.wixstatic.com/media/fb4d66_dc3bd9bda6ee42299979b9622a35742c~mv2.png/v1/crop/x_0,y_588,w_1563,h_386/fill/w_224,h_49,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/1.png" alt="Logo" style="width:179px;height:39px;object-fit:cover">
+                </a>
+    
+                <!-- Centered Navigation -->
+                <ul class="nav col-12 col-lg-auto mx-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/manager" class="nav-link px-2 {% if request.path == '/manager' %}active link-body-emphasis{% else %}link-body-emphasis{% endif %}">Manager</a></li>
+                    <li><a href="/events" class="nav-link px-2 {% if request.path == '/events' %}active link-body-emphasis{% else %}link-body-emphasis{% endif %}">Events</a></li>
+                    <li><a href="/speakers" class="nav-link px-2 {% if request.path == '/speakers' %}active link-body-emphasis{% else %}link-body-emphasis{% endif %}">Speakers</a></li>
+                    <li><a href="/venues" class="nav-link px-2 {% if request.path == '/venues' %}active link-body-emphasis{% else %}link-body-emphasis{% endif %}">Venues</a></li>
+                </ul>
+    
+                <!-- Welcome and Profile -->
+                <div class="d-flex align-items-center">
+                    <!-- Welcome Message -->
+                    <div class="nav-item text-primary px-2">
+                        <p class="nav-link mb-0">Welcome, {{ g.admin.name.split(' ')[0] }}</p>
+                    </div>
+    
+                    <!-- Profile Dropdown -->
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="Profile" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+  
+  
+
+    <!-- Main Content Section -->
+    <main>
+        {% block content %}
+        <!-- This is where page-specific content will go -->
+        {% endblock %}
+    </main>
+
+    <!-- Common Footer -->
+    <footer class="mt-auto bg-light py-3">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <p class="text-muted mb-0">&copy; 2024 MCC Event Manager. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
