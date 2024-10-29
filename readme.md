@@ -50,7 +50,7 @@ Ensure you have the following installed on your system:
 
 3. **Install the required dependencies**:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements.txt (currently not reuired)
    ```
 
 4. **Set up the database**:
@@ -66,14 +66,18 @@ Ensure you have the following installed on your system:
 
 ## Usage
 1. **Access the application**: Open `http://127.0.0.1:5000` in your web browser.
-2. **Login**: Use username "alice" and "password1" to log in and access the manager features.
+2. **Login**: Use username "alice" and "password1" to log in and access the manager features. 
+Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager`
 3. **Manage Events**: Create, update, or delete events using the event management section.
-4. **Assign Speakers and Hosts**: Add speakers and assign event hosts to manage event details dynamically.
+4. **Add Speakers and Event**: Add speakers and events hosts to manage events.
 
 ## Project Structure
 ```
 mcc-event-manager/
 ├── app.py             # Main application file
+├── config.py          # Database configuration file
+├── crm.db             # SQLite databse
+├── add_data_to_db.py  # Mock data for poputating db
 ├── models/            # SQLAlchemy class models for database entities
 ├── templates/         # HTML templates
 └── README.md          # Project documentation
@@ -84,4 +88,3 @@ mcc-event-manager/
 - [Bootstrap](https://getbootstrap.com/) for responsive design.
 - [Flatpickr](https://flatpickr.js.org/) for the time picker component.
 
-```
