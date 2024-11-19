@@ -361,5 +361,23 @@ def delete_venue(venue_id):
         print(f"Error occurred: {e}")
         return redirect(url_for('list_venues'))
 
+@app.route('/update_venue', methods=['POST'])
+def update_venue():
+    venue_id = request.form.get('venue_id')
+    name = request.form.get('name')
+    location = request.form.get('location')
+    capacity = request.form.get('capacity')
+
+    # Fetch the venue from the database
+    venue = Venue.query.get_or_404(venue_id)
+    venue.name = name
+    venue.location = location
+    venue.capacity = capacity
+
+    # Save the changes to the database
+    db.session.commit()
+    return redirect(url_for('list_venues'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

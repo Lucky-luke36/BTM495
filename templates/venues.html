@@ -77,36 +77,102 @@ MCC Event Manager - Venues
         </div>
         
         
-        <table class="table table-striped" style="margin: 10px;">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Capacity</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for venue in venues %}
-                <tr>
-                    <td>{{ venue.venue_id }}</td>
-                    <td>{{ venue.name }}</td>
-                    <td>{{ venue.location }}</td>
-                    <td>{{ venue.capacity }}</td>
-                    <td>
-                        <!-- Delete button with a form to submit DELETE request -->
-                        <form method="POST" action="{{ url_for('delete_venue', venue_id=venue.venue_id) }}" onsubmit="return confirm('Are you sure you want to delete this speaker?');">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+        <div class="card mt-3" style="margin: 10px;">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Capacity</th>
+                            <th>Modify</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for venue in venues %}
+                        <tr>
+                            <td>{{ venue.venue_id }}</td>
+                            <td>{{ venue.name }}</td>
+                            <td>{{ venue.location }}</td>
+                            <td>{{ venue.capacity }}</td>
+                            <td>
+                                <!-- Update button to open modal -->
+                                <button 
+                                    type="button" 
+                                    class="btn btn-warning btn-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#updateVenueModal" 
+                                    data-venue-id="{{ venue.venue_id }}" 
+                                    data-venue-name="{{ venue.name }}" 
+                                    data-venue-location="{{ venue.location }}" 
+                                    data-venue-capacity="{{ venue.capacity }}">
+                                    Update
+                                </button>
+        
+                                <!-- Delete button with a form to submit DELETE request -->
+                                <form method="POST" action="{{ url_for('delete_venue', venue_id=venue.venue_id) }}" onsubmit="return confirm('Are you sure you want to delete this venue?');" style="display:inline-block;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Update Venue Modal -->
+        <div class="modal fade" id="updateVenueModal" tabindex="-1" aria-labelledby="updateVenueModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateVenueModalLabel">Update Venue</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateVenueForm" method="POST" action="{{ url_for('update_venue') }}">
+                            <input type="hidden" name="venue_id" id="updateVenueId">
+                            <div class="mb-3">
+                                <label for="updateVenueName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="updateVenueName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateVenueLocation" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="updateVenueLocation" name="location" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateVenueCapacity" class="form-label">Capacity</label>
+                                <input type="number" class="form-control" id="updateVenueCapacity" name="capacity" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
                         </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
-
+    <script>
+        // Fill the update modal with the venue's details
+        document.getElementById('updateVenueModal').addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const venueId = button.getAttribute('data-venue-id');
+            const venueName = button.getAttribute('data-venue-name');
+            const venueLocation = button.getAttribute('data-venue-location');
+            const venueCapacity = button.getAttribute('data-venue-capacity');
+    
+            document.getElementById('updateVenueId').value = venueId;
+            document.getElementById('updateVenueName').value = venueName;
+            document.getElementById('updateVenueLocation').value = venueLocation;
+            document.getElementById('updateVenueCapacity').value = venueCapacity;
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
