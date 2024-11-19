@@ -124,6 +124,22 @@ def delete_speaker(speaker_id):
         print(f"Error occurred: {e}")
         return redirect(url_for('list_speakers'))
 
+@app.route('/update_speaker', methods=['POST'])
+def update_speaker():
+    speaker_id = request.form.get('speaker_id')
+    name = request.form.get('name')
+    email = request.form.get('email')
+    expertise = request.form.get('expertise')
+
+    # Fetch the speaker from the database
+    speaker = Speaker.query.get_or_404(speaker_id)
+    speaker.name = name
+    speaker.email = email
+    speaker.expertise = expertise
+
+    # Save the changes to the database
+    db.session.commit()
+    return redirect(url_for('list_speakers'))
 
 
 

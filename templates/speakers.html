@@ -86,7 +86,7 @@ MCC Event Manager - Speakers
                             <th>Name</th>
                             <th>Email</th>
                             <th>Expertise</th>
-                            <th>Delete</th>
+                            <th>Modify</th> <!-- Renamed from "Delete" to "Modify" -->
                         </tr>
                     </thead>
                     <tbody>
@@ -97,10 +97,23 @@ MCC Event Manager - Speakers
                             <td>{{ speaker.email }}</td>
                             <td>{{ speaker.expertise }}</td>
                             <td>
+                                <!-- Update button to open modal -->
+                                <button 
+                                    type="button" 
+                                    class="btn btn-warning btn-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#updateSpeakerModal" 
+                                    data-speaker-id="{{ speaker.speaker_id }}" 
+                                    data-speaker-name="{{ speaker.name }}" 
+                                    data-speaker-email="{{ speaker.email }}" 
+                                    data-speaker-expertise="{{ speaker.expertise }}">
+                                    Update
+                                </button>
+        
                                 <!-- Delete button with a form to submit DELETE request -->
-                                <form method="POST" action="{{ url_for('delete_speaker', speaker_id=speaker.speaker_id) }}" onsubmit="return confirm('Are you sure you want to delete this speaker?');">
+                                <form method="POST" action="{{ url_for('delete_speaker', speaker_id=speaker.speaker_id) }}" onsubmit="return confirm('Are you sure you want to delete this speaker?');" style="display:inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -109,8 +122,57 @@ MCC Event Manager - Speakers
                 </table>
             </div>
         </div>
-    </div>
 
+        <!-- Update Speaker Modal -->
+<div class="modal fade" id="updateSpeakerModal" tabindex="-1" aria-labelledby="updateSpeakerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateSpeakerModalLabel">Update Speaker</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateSpeakerForm" method="POST" action="{{ url_for('update_speaker') }}">
+                    <input type="hidden" name="speaker_id" id="updateSpeakerId">
+                    <div class="mb-3">
+                        <label for="updateSpeakerName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="updateSpeakerName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateSpeakerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="updateSpeakerEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateSpeakerExpertise" class="form-label">Expertise</label>
+                        <input type="text" class="form-control" id="updateSpeakerExpertise" name="expertise" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <script>
+        // Fill the update modal with the speaker's details
+        document.getElementById('updateSpeakerModal').addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const speakerId = button.getAttribute('data-speaker-id');
+            const speakerName = button.getAttribute('data-speaker-name');
+            const speakerEmail = button.getAttribute('data-speaker-email');
+            const speakerExpertise = button.getAttribute('data-speaker-expertise');
+    
+            document.getElementById('updateSpeakerId').value = speakerId;
+            document.getElementById('updateSpeakerName').value = speakerName;
+            document.getElementById('updateSpeakerEmail').value = speakerEmail;
+            document.getElementById('updateSpeakerExpertise').value = speakerExpertise;
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
