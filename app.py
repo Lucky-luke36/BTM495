@@ -196,6 +196,23 @@ def delete_event(event_id):
         print(f"Error occurred: {e}")
         return redirect(url_for('list_events'))
 
+@app.route('/update_event', methods=['POST'])
+def update_event():
+    event_id = request.form.get('event_id')
+    name = request.form.get('name')
+    date = request.form.get('date')
+    venue_id = request.form.get('venue_id')
+
+    # Fetch the event to update
+    event = Event.query.get_or_404(event_id)
+    if event:
+        # Update the event details
+        event.name = name
+        event.date = date
+        event.venue_id = venue_id
+        db.session.commit()
+
+    return redirect(url_for('list_events'))
 
 
 ######### Manager Page ##################

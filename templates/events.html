@@ -89,7 +89,7 @@ MCC Event Manager - Events
                     <th>Name</th>
                     <th>Date</th>
                     <th>Venue</th>
-                    <th>Delete</th>
+                    <th>Modify</th> <!-- Renamed from "Delete" to "Modify" -->
                 </tr>
             </thead>
             <tbody>
@@ -100,10 +100,23 @@ MCC Event Manager - Events
                     <td>{{ event.date }}</td>
                     <td>{{ event.venue.name }}</td>
                     <td>
+                        <!-- Update button to open modal -->
+                        <button 
+                            type="button" 
+                            class="btn btn-warning btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#updateEventModal" 
+                            data-event-id="{{ event.event_id }}" 
+                            data-event-name="{{ event.name }}" 
+                            data-event-date="{{ event.date }}" 
+                            data-event-venue-id="{{ event.venue.venue_id }}">
+                            Update
+                        </button>
+        
                         <!-- Delete button with a form to submit DELETE request -->
-                        <form method="POST" action="{{ url_for('delete_event', event_id=event.event_id) }}" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                        <form method="POST" action="{{ url_for('delete_event', event_id=event.event_id) }}" onsubmit="return confirm('Are you sure you want to delete this event?');" style="display:inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -111,6 +124,60 @@ MCC Event Manager - Events
             </tbody>
         </table>
     </div>
+
+    <!-- Update Event Modal -->
+<div class="modal fade" id="updateEventModal" tabindex="-1" aria-labelledby="updateEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateEventModalLabel">Update Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateEventForm" method="POST" action="{{ url_for('update_event') }}">
+                    <input type="hidden" name="event_id" id="updateEventId">
+                    <div class="mb-3">
+                        <label for="updateEventName" class="form-label">Event Name</label>
+                        <input type="text" class="form-control" id="updateEventName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateEventDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="updateEventDate" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateEventVenue" class="form-label">Venue</label>
+                        <select class="form-control" id="updateEventVenue" name="venue_id" required>
+                            {% for venue in venues %}
+                            <option value="{{ venue.venue_id }}">{{ venue.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Populate the update event modal with existing event data
+    document.getElementById('updateEventModal').addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var eventId = button.getAttribute('data-event-id');
+        var eventName = button.getAttribute('data-event-name');
+        var eventDate = button.getAttribute('data-event-date');
+        var eventVenueId = button.getAttribute('data-event-venue-id');
+
+        // Populate modal fields with the event data
+        document.getElementById('updateEventId').value = eventId;
+        document.getElementById('updateEventName').value = eventName;
+        document.getElementById('updateEventDate').value = eventDate;
+        document.getElementById('updateEventVenue').value = eventVenueId;
+    });
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
