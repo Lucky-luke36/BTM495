@@ -11,47 +11,11 @@
 
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
 
 </head>
 <body>
-    <style>
-        /* Ensure the body and html take up full height */
-        html, body {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Main content should grow to fill space, pushing footer down */
-        main {
-            flex: 1;
-        }
-
-        /* Footer styles */
-        footer {
-            background-color: #f8f9fa;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        
-        main::after{
-        content: "";
-        background: url("https://static.wixstatic.com/media/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg/v1/fill/w_1519,h_824,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg") no-repeat center center fixed;
-        opacity: 0.5;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        position: absolute;
-        z-index: -1;   
-        }
-
-        header {
-            background-color: white;
-            z-index: 2; /* Ensure it stays on top of the background image */
-        }
-    </style>
     <!-- Common Header -->
     <header class="p-3 mb-3 border-bottom">
         <div class="container">

@@ -1,0 +1,24 @@
+
+/* Ensure the cards have a solid background */
+.card, .modal-content, table {
+    background-color: #fff;
+}
+
+/* Apply background image but under all content */
+body::after {
+    content: "";
+    background: url("https://static.wixstatic.com/media/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg/v1/fill/w_1519,h_824,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/fb4d66_8287c176e648448e8ecf3784cf8d7435~mv2.jpg") no-repeat center center fixed;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+/* Padding for the container so it doesn't stick to the top */
+.container {
+    background-color: rgba(255, 255, 255, 0.8); /* Optional slight transparency */
+    border-radius: 10px;
+}
