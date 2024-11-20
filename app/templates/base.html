@@ -74,7 +74,11 @@
                 <div class="d-flex align-items-center">
                     <!-- Welcome Message -->
                     <div class="nav-item text-primary px-2">
+                        {% if g.admin %}
                         <p class="nav-link mb-0">Welcome, {{ g.admin.name.split(' ')[0] }}</p>
+                        {% else %}
+                        <p class="nav-link mb-0">Welcome, Guest</p>
+                        {% endif %}
                     </div>
     
                     <!-- Profile Dropdown -->

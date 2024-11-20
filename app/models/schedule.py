@@ -1,5 +1,5 @@
-from models import db
-from models.timeslot import TimeSlot
+from app.extentions import db
+from app.models.timeslot import TimeSlot
 
 class Schedule(db.Model):
     __tablename__ = 'schedules'

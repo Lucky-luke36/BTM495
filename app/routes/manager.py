@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, g, session,jsonify
-from app.models import Admin, db, Speaker, TimeSlot, Event
+from app.models import Admin, Speaker, TimeSlot, Event
 from datetime import datetime
+from app.extentions import db
 
 
-bp = Blueprint('manager', __name__, url_prefix='/manager')
+bp = Blueprint('dashboard', __name__, url_prefix='/')
 
 
 

@@ -53,7 +53,7 @@ MCC Event Manager - Events
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addEventForm" method="POST" action="{{ url_for('add_event') }}">
+                    <form id="addEventForm" method="POST" action="{{ url_for('events.add_event') }}">
                     <div class="mb-3">
                     <label for="eventName" class="form-label">Event Name</label>
                     <input type="text" class="form-control" id="eventName" name="name" required>
@@ -114,7 +114,7 @@ MCC Event Manager - Events
                         </button>
         
                         <!-- Delete button with a form to submit DELETE request -->
-                        <form method="POST" action="{{ url_for('delete_event', event_id=event.event_id) }}" onsubmit="return confirm('Are you sure you want to delete this event?');" style="display:inline-block;">
+                        <form method="POST" action="{{ url_for('events.delete_event', event_id=event.event_id) }}" onsubmit="return confirm('Are you sure you want to delete this event?');" style="display:inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
@@ -134,7 +134,7 @@ MCC Event Manager - Events
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateEventForm" method="POST" action="{{ url_for('update_event') }}">
+                <form id="updateEventForm" method="POST" action="{{ url_for('events.update_event') }}">
                     <input type="hidden" name="event_id" id="updateEventId">
                     <div class="mb-3">
                         <label for="updateEventName" class="form-label">Event Name</label>

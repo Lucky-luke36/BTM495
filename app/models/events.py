@@ -1,7 +1,8 @@
-from models import db
-from models.schedule import Schedule 
-from models.venue import Venue
-from models.admin import admin_event_association
+
+from app.models.schedule import Schedule 
+from app.models.venue import Venue
+from app.models.admin import admin_event_association
+from app.extentions import db
 
 
 class Event(db.Model):

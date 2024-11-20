@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from app.models import Event, Venue, Schedule, db
+from app.models import Event, Venue, Schedule
+from app.extentions import db
 from datetime import datetime
 
-bp = Blueprint('events', __name__, url_prefix='/events')
+bp = Blueprint('events', __name__, url_prefix='/')
 
 
 
@@ -26,7 +27,7 @@ def add_event():
         
         if not name or not date or not venue_id:
             print("Form data missing")
-            return redirect(url_for('list_speakers'))  # Or handle with a flash message or error
+            return redirect(url_for('events.list_speakers'))  # Or handle with a flash message or error
         
         # Debug print to verify form data
         print(f"Received data - Name: {name}, Date: {date}, Venue ID: {venue_id}")
@@ -45,7 +46,7 @@ def add_event():
         db.session.commit()
 
         # Redirect after adding the event and schedule
-        return redirect(url_for('list_events'))
+        return redirect(url_for('events.list_events'))
 
     # Render the form with venues list
     return render_template('list_events')
@@ -68,11 +69,11 @@ def delete_event(event_id):
         # Delete the speaker from the database
         db.session.delete(event_to_delete)
         db.session.commit()
-        return redirect(url_for('list_events'))
+        return redirect(url_for('events.list_events'))
     except Exception as e:
         # Handle any exceptions
         print(f"Error occurred: {e}")
-        return redirect(url_for('list_events'))
+        return redirect(url_for('events.list_events'))
 
 @bp.route('/update_event', methods=['POST'])
 def update_event():
@@ -90,5 +91,5 @@ def update_event():
         event.venue_id = venue_id
         db.session.commit()
 
-    return redirect(url_for('list_events'))
+    return redirect(url_for('events.list_events'))
 

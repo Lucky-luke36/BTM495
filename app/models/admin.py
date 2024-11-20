@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db
-from models.user import User
+from app.extentions import db
+from app.models.user import User
 
 admin_event_association = db.Table('admin_event_association',
     db.Column('event_id', db.Integer, db.ForeignKey('events.event_id'), primary_key=True),

@@ -1,1 +1,1 @@
-from . import events, login, speakers, venues, time_slots
+from . import events, login, speakers, venues #, time_slots

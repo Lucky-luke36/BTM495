@@ -1,4 +1,4 @@
-from models import db
+from app.extentions import db
 
 # Association Table for TimeSlot and Speaker (many-to-many relationship)
 time_slot_speakers = db.Table('time_slot_speakers',

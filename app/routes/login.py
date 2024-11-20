@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, g, session
-from app.models import Admin, db
+from app.models import Admin
+from app.extentions import db
 
 bp = Blueprint('login', __name__, url_prefix='/')
 
@@ -24,7 +25,7 @@ def login():
         admin = Admin.query.filter_by(username=username).first()
         if admin and admin.check_password(password):
             session['user_id'] = admin.admin_id  # Store the admin ID in the session
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('dashboard.dashboard'))
         else:
             error_message = "Invalid username or password"
             return render_template('index.html', error_message=error_message)

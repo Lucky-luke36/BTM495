@@ -1,4 +1,4 @@
-from models import db
+from app.extentions import db
 
 class Venue(db.Model):
     __tablename__ = 'venues'

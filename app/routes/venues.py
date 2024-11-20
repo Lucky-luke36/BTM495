@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from app.models import db, Venue
+from app.models import Venue
+from app.extentions import db
 
-bp = Blueprint('venues', __name__, url_prefix='/venues')
+bp = Blueprint('venues', __name__, url_prefix='/')
 
 
 

@@ -54,7 +54,7 @@ MCC Event Manager - Speakers
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addSpeakerForm" method="POST" action="{{ url_for('add_speaker') }}">
+                        <form id="addSpeakerForm" method="POST" action="{{ url_for('speakers.add_speaker') }}">
                             <div class="mb-3">
                                 <label for="speakerName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="speakerName" name="name" required>
@@ -111,7 +111,7 @@ MCC Event Manager - Speakers
                                 </button>
         
                                 <!-- Delete button with a form to submit DELETE request -->
-                                <form method="POST" action="{{ url_for('delete_speaker', speaker_id=speaker.speaker_id) }}" onsubmit="return confirm('Are you sure you want to delete this speaker?');" style="display:inline-block;">
+                                <form method="POST" action="{{ url_for('speakers.delete_speaker', speaker_id=speaker.speaker_id) }}" onsubmit="return confirm('Are you sure you want to delete this speaker?');" style="display:inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
@@ -132,7 +132,7 @@ MCC Event Manager - Speakers
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateSpeakerForm" method="POST" action="{{ url_for('update_speaker') }}">
+                <form id="updateSpeakerForm" method="POST" action="{{ url_for('speakers.update_speaker') }}">
                     <input type="hidden" name="speaker_id" id="updateSpeakerId">
                     <div class="mb-3">
                         <label for="updateSpeakerName" class="form-label">Name</label>
