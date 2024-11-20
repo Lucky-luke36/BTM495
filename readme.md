@@ -67,7 +67,7 @@ Ensure you have the following installed on your system:
 ## Usage
 1. **Access the application**: Open `http://127.0.0.1:5000` in your web browser.
 2. **Login**: Use username "alice" and "password1" to log in and access the manager features. 
-Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager`
+Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager` (This may cause an error)
 3. **Manage Events**: Create, update, or delete events using the event management section.
 4. **Add Speakers and Event**: Add speakers and events hosts to manage events.
 
@@ -98,18 +98,18 @@ BTM495/
 
 ```
 ## Contributing
-1. Fork the repository.
-2. Create a new branch for your feature:
-'''
+1. **Fork the repository.**
+2. **Create a new branch for your feature:**
+```
 git checkout -b feature/your-feature-name
-'''
-3. Commit your changes and push to the branch:
-'''
+```
+3. **Commit your changes and push to the branch:**
+```
 git add .
 git commit -m "Add your feature"
 git push origin feature/your-feature-name
-'''
-4. Submit a Pull Request.
+```
+4. **Submit a Pull Request.**
 
 ## Acknowledgements
 - [Flask](https://flask.palletsprojects.com/) for the backend framework.
