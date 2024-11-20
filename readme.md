@@ -73,15 +73,43 @@ Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager`
 
 ## Project Structure
 ```
-mcc-event-manager/
-├── app.py             # Main application file
-├── config.py          # Database configuration file
-├── crm.db             # SQLite databse
-├── add_data_to_db.py  # Mock data for poputating db
-├── models/            # SQLAlchemy class models for database entities
-├── templates/         # HTML templates
-└── README.md          # Project documentation
+BTM495/
+├── app/                        # Core application folder
+│   ├── __init__.py             # App factory and extensions initialization
+│   ├── routes/                 # Blueprints for routes
+│   │   ├── login.py            # Authentication routes
+│   │   ├── manager.py          # Admin dashboard routes
+│   │   ├── events.py           # Event management routes
+│   │   ├── venues.py           # Venue management routes
+│   │   └── speakers.py         # Speaker management routes
+│   ├── models/                 # SQLAlchemy database models
+│   │   ├── admin.py
+│   │   ├── events.py
+│   │   ├── venues.py
+│   │   └── speakers.py
+│   ├── templates/              # HTML templates
+│   ├── static/                 # Static assets (CSS, JS, images)
+│   └── extensions.py           # Extensions like SQLAlchemy initialization
+├── crm.db                      # Local Database 
+├── config.py                   # App configuration
+├── run.py                      # Application entry point
+├── requirements.txt            # Dependencies list
+└── README.md                   # Project documentation
+
 ```
+## Contributing
+1. Fork the repository.
+2. Create a new branch for your feature:
+'''
+git checkout -b feature/your-feature-name
+'''
+3. Commit your changes and push to the branch:
+'''
+git add .
+git commit -m "Add your feature"
+git push origin feature/your-feature-name
+'''
+4. Submit a Pull Request.
 
 ## Acknowledgements
 - [Flask](https://flask.palletsprojects.com/) for the backend framework.
