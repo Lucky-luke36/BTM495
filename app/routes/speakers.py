@@ -79,7 +79,7 @@ def update_speaker():
 
     # Save the changes to the database
     db.session.commit()
-    return redirect(url_for('list_speakers'))
+    return redirect(url_for('speakers.list_speakers'))
 
 
 
