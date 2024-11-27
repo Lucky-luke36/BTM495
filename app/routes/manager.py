@@ -20,20 +20,20 @@ def dashboard():
     admins = Admin.query.all() 
 
     # Calculate statistics for the cards
-    member_count = len(Admin.query.all())  # Assuming 'Admin' includes members
+    member_count = len(Admin.query.all())  
     speaker_count = len(speakers)
     event_count = len(Event.query.filter(Event.date > datetime.today()).all())
     past_events = len(Event.query.filter(Event.date < datetime.today()).all())
     current_date = datetime.today()
 
     for event in events:
-        if isinstance(event.date, str):  # Only parse if it's a string
+        if isinstance(event.date, str):  
             event.date = datetime.strptime(event.date, "%Y-%m-%d") 
     
     events = sorted(
         Event.query.all(),
-        key=lambda event: event.date,  # Sort by the `date` attribute
-        reverse=True  # Sort in descending order (recent to oldest)
+        key=lambda event: event.date,  
+        reverse=True  # Sort in descending order 
     )
 
     return render_template(
