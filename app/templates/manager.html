@@ -15,6 +15,64 @@ MCC Event Manager - Manager
     <link rel="stylesheet" href="{{ url_for('static', filename='css/manager.css') }}">
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card stats-card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Members</h5>
+                    <h2 class="stat-value">12</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stats-card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Speakers</h5>
+                    <h2 class="stat-value">34</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stats-card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Events Held</h5>
+                    <h2 class="stat-value">8</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stats-card text-center">
+              <div class="card-body">
+                  <h5 class="card-title">Upcoming Events</h5>
+                  <h2 class="stat-value">3</h2>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+
+<style>
+    .stats-card {
+        background-color: #f8f9fa;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .stats-card .card-title {
+        font-size: 1.2rem;
+        color: #6c757d;
+    }
+
+    .stats-card .stat-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #4c69ba;
+    }
+</style>
+
 
 <div class="container-fluid">
     <div class="row">
