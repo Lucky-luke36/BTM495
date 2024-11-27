@@ -29,6 +29,12 @@ def dashboard():
     for event in events:
         if isinstance(event.date, str):  # Only parse if it's a string
             event.date = datetime.strptime(event.date, "%Y-%m-%d") 
+    
+    events = sorted(
+        Event.query.all(),
+        key=lambda event: event.date,  # Sort by the `date` attribute
+        reverse=True  # Sort in descending order (recent to oldest)
+    )
 
     return render_template(
         'manager.html', 
