@@ -21,7 +21,7 @@ MCC Event Manager - Manager
             <div class="card stats-card text-center">
                 <div class="card-body">
                     <h5 class="card-title">Members</h5>
-                    <h2 class="stat-value">12</h2>
+                    <h2 class="stat-value">{{ member_count }}</h2>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@ MCC Event Manager - Manager
             <div class="card stats-card text-center">
                 <div class="card-body">
                     <h5 class="card-title">Speakers</h5>
-                    <h2 class="stat-value">34</h2>
+                    <h2 class="stat-value">{{ speaker_count }}</h2>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ MCC Event Manager - Manager
             <div class="card stats-card text-center">
                 <div class="card-body">
                     <h5 class="card-title">Events Held</h5>
-                    <h2 class="stat-value">8</h2>
+                    <h2 class="stat-value">{{ past_events }}</h2>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ MCC Event Manager - Manager
           <div class="card stats-card text-center">
               <div class="card-body">
                   <h5 class="card-title">Upcoming Events</h5>
-                  <h2 class="stat-value">3</h2>
+                  <h2 class="stat-value">{{ event_count }}</h2>
               </div>
           </div>
       </div>
@@ -77,26 +77,37 @@ MCC Event Manager - Manager
 <div class="container-fluid">
     <div class="row">
       
+      
       <!-- Left Column: Event List -->
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">
-            <h3>Select Event</h3>
+<div class="col-md-3">
+  <div class="card">
+    <div class="card-header">
+      <h3>Select Event</h3>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for event in events %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+	      <a href="#" class="event-link" data-event-id="{{ event.event_id }}">
+
+          <div>
+            <strong>{{ event.name }}</strong>
+            <div class="text-muted small">{{ event.date.strftime("%B %d, %Y") }}</div>
           </div>
-          <div class="card-body">
-            <ul class="list-group list-group-flush">
-              {% for event in events %}
-              <li class="list-group-item">
-                <a href="#" class="event-link" data-event-id="{{ event.event_id }}">
-                  <div>{{ event.name }}</div>  
-                  <div>{{ event.date }}</div>
-                </a>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
+          </a>
+          <!-- Badge indicating if the event is past or upcoming -->
+          {% if event.date < current_date %}
+          <span class="badge bg-danger">Past</span>
+          {% else %}
+          <span class="badge bg-success">Upcoming</span>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
       
       
     <!-- Middle Column: Event Details -->

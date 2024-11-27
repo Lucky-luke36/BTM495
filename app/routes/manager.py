@@ -18,7 +18,28 @@ def dashboard():
     speakers = Speaker.query.all()
     events = Event.query.all()
     admins = Admin.query.all() 
-    return render_template('manager.html', speakers=speakers, events=events, admins=admins)
+
+    # Calculate statistics for the cards
+    member_count = len(Admin.query.all())  # Assuming 'Admin' includes members
+    speaker_count = len(speakers)
+    event_count = len(Event.query.filter(Event.date > datetime.today()).all())
+    past_events = len(Event.query.filter(Event.date < datetime.today()).all())
+    current_date = datetime.today()
+
+    for event in events:
+        if isinstance(event.date, str):  # Only parse if it's a string
+            event.date = datetime.strptime(event.date, "%Y-%m-%d") 
+
+    return render_template(
+        'manager.html', 
+        speakers=speakers, 
+        events=events, 
+        admins=admins,
+        member_count=member_count,
+        speaker_count=speaker_count,
+        event_count=event_count,
+        past_events=past_events,
+        current_date=current_date)
 
 @bp.route('/event_details/<int:event_id>')
 def event_details(event_id):
