@@ -30,7 +30,8 @@ MCC Event Manager - Manager
               {% for event in events %}
               <li class="list-group-item">
                 <a href="#" class="event-link" data-event-id="{{ event.event_id }}">
-                  {{ event.name }} - {{ event.date }}
+                  <div>{{ event.name }}</div>  
+                  <div>{{ event.date }}</div>
                 </a>
               </li>
               {% endfor %}
@@ -137,12 +138,6 @@ MCC Event Manager - Manager
 
   </script>
 
-
-
-  
-
-  
-
   <!-- Admins Section -->
   <div class="card">
     <div class="card-header">
@@ -152,13 +147,12 @@ MCC Event Manager - Manager
       <ul class="list-group list-group-flush">
         {% for admin in admins %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span class="name-field">{{ admin.name}}</span>
-          <button class="btn btn-sm btn-primary assign-admin-btn "
-            data-bs-toggle="modal" data-bs-target="#assignAdminModal"
-            data-admin-id="{{ admin.admin_id }}" disabled>
-            <i class="bi bi-plus">Assign</i>
+          <span class="name-field">{{ admin.name }}</span>
+          <button class="btn btn-sm btn-primary assign-admin-btn d-flex align-items-center justify-content-center"
+              data-admin-id="{{ admin.admin_id }}" data-event-id="" disabled>
+              <i class="bi bi-plus">Assign</i> <!-- Plus icon -->
           </button>
-        </li>
+      </li>
         {% endfor %}
       </ul>
     </div>
@@ -323,6 +317,57 @@ MCC Event Manager - Manager
   });
 </script>
 
+<script>
+  // Enable Admin Buttons when Event is Selected
+document.querySelectorAll('.event-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default link behavior
+        var eventId = this.getAttribute('data-event-id'); // Get the event ID from the link
+
+        // Enable and set the event_id for each admin button
+        document.querySelectorAll('.assign-admin-btn').forEach(function (button) {
+            button.disabled = false; // Enable the button
+            button.setAttribute('data-event-id', eventId); // Set the event ID for the button
+        });
+    });
+});
+</script>
+<script>
+document.querySelectorAll('.assign-admin-btn').forEach(function (button) {
+    button.addEventListener('click', function () {
+        const adminId = this.getAttribute('data-admin-id');
+        const eventId = this.getAttribute('data-event-id');
+
+        if (!eventId) {
+            alert("Please select an event first.");
+            return;
+        }
+
+        // Send POST request to assign admin
+        fetch('/assign_admin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ admin_id: adminId, event_id: eventId }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    alert("Admin assigned successfully.");
+                } else {
+                    alert(data.message || "Failed to assign admin.");
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("An error occurred while assigning the admin.");
+            });
+    });
+});
+
+
+</script>
 
 
 {% endblock %}

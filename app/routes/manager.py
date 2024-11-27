@@ -81,3 +81,29 @@ def delete_time_slot(slot_id):
         # If there's an error, return an error message
         return jsonify(success=False, message=str(e))
 
+
+@bp.route('/assign_admin', methods=['POST'])
+def assign_admin():
+    # Parse JSON data from the request
+    data = request.get_json()
+    if not data:
+        return jsonify(success=False, message="Invalid request, no data provided."), 400
+
+    admin_id = data.get('admin_id')
+    event_id = data.get('event_id')
+
+    if not admin_id or not event_id:
+        return jsonify(success=False, message="Missing admin_id or event_id."), 400
+
+    # Fetch the admin and event
+    admin = Admin.query.get_or_404(admin_id)
+    event = Event.query.get_or_404(event_id)
+
+    # Assign the admin to the event
+    if admin not in event.admins:
+        event.admins.append(admin)
+        db.session.commit()
+        return jsonify(success=True, message="Admin assigned successfully.")
+    else:
+        return jsonify(success=False, message="Admin is already assigned to this event.")
+
