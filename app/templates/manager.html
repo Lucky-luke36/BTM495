@@ -160,7 +160,7 @@ MCC Event Manager - Manager
     <div class="card-header">
       <h3>Speakers</h3>
       <!-- Search Input for Filtering Speakers -->
-      <input type="text" id="speakerFilter" class="form-control mt-2" placeholder="Filter speakers by name or expertise">
+      <input type="text" id="speakerFilter" class="form-control mt-2" placeholder="Filter by name or expertise">
     </div>
     
     <div class="card-body">
@@ -176,7 +176,7 @@ MCC Event Manager - Manager
           <button class="btn btn-sm btn-primary add-to-event-btn"
             data-bs-toggle="modal" data-bs-target="#addTimeSlotModal"
             data-speaker-id="{{ speaker.speaker_id }}" disabled>
-            <i class="bi bi-plus">Add</i>
+            <i class="bi bi-person-plus-fill" style="font-size: 1.1rem;"></i>
           </button>
         </li>
         {% endfor %}
@@ -219,7 +219,7 @@ MCC Event Manager - Manager
           <span class="name-field">{{ admin.name }}</span>
           <button class="btn btn-sm btn-primary assign-admin-btn d-flex align-items-center justify-content-center"
               data-admin-id="{{ admin.admin_id }}" data-event-id="" disabled>
-              <i class="bi bi-plus">Assign</i> <!-- Plus icon -->
+              <i class="bi bi-person-plus-fill" style="font-size: 1.1rem;"></i> <!-- Plus icon -->
           </button>
       </li>
         {% endfor %}

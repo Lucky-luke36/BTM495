@@ -62,7 +62,7 @@ def delete_speaker(speaker_id):
     except Exception as e:
         # Handle any exceptions
         print(f"Error occurred: {e}")
-        return redirect(url_for('list_speakers'))
+        return redirect(url_for('speakers.list_speakers'))
 
 @bp.route('/update_speaker', methods=['POST'])
 def update_speaker():
