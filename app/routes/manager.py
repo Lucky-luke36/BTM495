@@ -108,6 +108,33 @@ def delete_time_slot(slot_id):
     except Exception as e:
         # If there's an error, return an error message
         return jsonify(success=False, message=str(e))
+    
+
+@bp.route('/delete_host/<int:event_id>/<int:admin_id>', methods=['POST'])
+def delete_host(event_id, admin_id):
+    print(f"Attempting to delete host {admin_id} from event {event_id}")
+    
+    # Find the event by ID
+    event = Event.query.get_or_404(event_id)
+    print(f"Event found: {event}")
+    
+    # Find the admin (host) in the event's admins relationship
+    admin = next((a for a in event.admins if a.admin_id == admin_id), None)
+    if not admin:
+        print("Host not found in the event.")
+        return jsonify(success=False, message="Host not found in the event."), 404  # Explicit 404 status code
+    
+    try:
+        # Remove the admin from the event's admins
+        event.admins.remove(admin)
+        db.session.commit()
+        print("Host removed successfully")
+        return jsonify(success=True)
+    except Exception as e:
+        print(f"Error while removing host: {e}")
+        return jsonify(success=False, message=str(e)), 500
+
+
 
 
 @bp.route('/assign_admin', methods=['POST'])
