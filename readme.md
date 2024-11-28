@@ -38,8 +38,8 @@ Ensure you have the following installed on your system:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/mcc-event-manager.git
-   cd mcc-event-manager
+   git clone https://github.com/Lucky-luke36/BTM495.git
+   cd BTM495
    ```
 
 2. **Create and activate a virtual environment**:
@@ -50,24 +50,20 @@ Ensure you have the following installed on your system:
 
 3. **Install the required dependencies**:
    ```bash
-   pip install -r requirements.txt (currently not reuired)
+   pip install -r requirements.txt (currently not required)
    ```
 
-4. **Set up the database**:
-   ```bash
-   flask db upgrade
-   ```
 
-5. **Run the application**:
+4. **Run the application**:
    ```bash
-   flask run
+   python run.py
    ```
    The application will be accessible at `http://127.0.0.1:5000`.
 
 ## Usage
 1. **Access the application**: Open `http://127.0.0.1:5000` in your web browser.
-2. **Login**: Use username "alice" and "password1" to log in and access the manager features. 
-Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager` (This may cause an error)
+2. **Login**: Use username "Kevin" and "password1" to log in and access the manager features. 
+Or bypass login by navigating directly to `http://127.0.0.1:5000/Manager` (This will start a session as Guest)
 3. **Manage Events**: Create, update, or delete events using the event management section.
 4. **Add Speakers and Event**: Add speakers and events hosts to manage events.
 
@@ -106,7 +102,7 @@ git checkout -b feature/your-feature-name
 3. **Commit your changes and push to the branch:**
 ```
 git add .
-git commit -m "Add your feature"
+git commit -m "commit details"
 git push origin feature/your-feature-name
 ```
 4. **Submit a Pull Request.**
