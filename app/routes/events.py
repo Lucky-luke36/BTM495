@@ -49,7 +49,7 @@ def add_event():
         return redirect(url_for('events.list_events'))
 
     # Render the form with venues list
-    return render_template('list_events')
+    return render_template('event.list_events')
 
 
 

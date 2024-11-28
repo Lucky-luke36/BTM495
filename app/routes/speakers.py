@@ -34,12 +34,12 @@ def add_speaker():
         db.session.commit()
 
         # Redirect back to the speakers list
-        return redirect(url_for('list_speakers'))
+        return redirect(url_for('speakers.list_speakers'))
     
     else:
         # If form data is missing, print an error message for debugging
         print("Form data missing")
-        return redirect(url_for('list_speakers'))  # Redirect to speakers list even if something is wrong
+        return redirect(url_for('speakers.list_speakers'))  # Redirect to speakers list even if something is wrong
 
 
 @bp.before_request
@@ -58,7 +58,7 @@ def delete_speaker(speaker_id):
         # Delete the speaker from the database
         db.session.delete(speaker_to_delete)
         db.session.commit()
-        return redirect(url_for('list_speakers'))
+        return redirect(url_for('speakers.list_speakers'))
     except Exception as e:
         # Handle any exceptions
         print(f"Error occurred: {e}")

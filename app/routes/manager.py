@@ -54,7 +54,8 @@ def event_details(event_id):
     schedule = event.schedule
 
     # Get the time slots associated with the schedule
-    time_slots = schedule.time_slots if schedule else []
+    time_slots = sorted(schedule.time_slots, key=lambda ts: ts.start_time) if schedule else []
+
 
     # Render the event details as a partial HTML snippet
     return render_template('partials/event_details.html', event=event, schedule=schedule, time_slots=time_slots)

@@ -36,12 +36,12 @@ def add_venue():
         db.session.commit()
 
         # Redirect back to the speakers list
-        return redirect(url_for('list_venues'))
+        return redirect(url_for('venues.list_venues'))
     
     else:
         # If form data is missing, print an error message for debugging
         print("Form data missing")
-        return redirect(url_for('list_venues'))  # Redirect to speakers list even if something is wrong
+        return redirect(url_for('venues.list_venues'))  # Redirect to speakers list even if something is wrong
 
 @bp.route('/delete_venue/<int:venue_id>', methods=['POST'])
 def delete_venue(venue_id):
@@ -52,11 +52,11 @@ def delete_venue(venue_id):
         # Delete the speaker from the database
         db.session.delete(venue_to_delete)
         db.session.commit()
-        return redirect(url_for('list_venues'))
+        return redirect(url_for('venues.list_venues'))
     except Exception as e:
         # Handle any exceptions
         print(f"Error occurred: {e}")
-        return redirect(url_for('list_venues'))
+        return redirect(url_for('venues.list_venues'))
 
 @bp.route('/update_venue', methods=['POST'])
 def update_venue():
@@ -73,4 +73,4 @@ def update_venue():
 
     # Save the changes to the database
     db.session.commit()
-    return redirect(url_for('list_venues'))
+    return redirect(url_for('venues.list_venues'))
